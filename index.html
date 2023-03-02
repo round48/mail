@@ -78,20 +78,15 @@
           var message = document.getElementById("contact-form").elements.namedItem("message").value;
 
           
-          var body = JSON.stringify({
-            "to": "mrahmandusp@gmail.com",
-            "subject": "New Message from Your Website",
-            "message": "Name: " + name + "\nEmail: " + email + "\nMessage: " + message
-          });
-          
             Email.send({
-                Host : "smtp.elasticemail.com",
-                Username : "Round 48",
-                Password : "mizanbro48",
+                //Host : "smtp.elasticemail.com",
+                //Username : "round48.special@gmail.com",
+               // Password : "2972644B201CD14472576DA4D527D16BC56B",
+                SecureToken: "cdc44cfe-7287-4a31-8ddc-7ab8925a7d6d"
                 To : 'round48special@gmail.com',
                 From : email,
-                Subject : message,
-                Body : "And this is the body"
+                Subject : "Contact Qurey form gihub page",
+                Body : message
             }).then(
               message => alert(message)
             );
