@@ -69,17 +69,14 @@
         <input type="email" name="email" placeholder="Email" required>
         <textarea name="message" placeholder="Message" required></textarea>
         <button type="submit">Send</button>
-    </form>
+    </form><script src="https://smtpjs.com/v3/smtp.js">
+   </script>
     <script>
         function sendEmail() {
           var name = document.getElementById("contact-form").elements.namedItem("name").value;
           var email = document.getElementById("contact-form").elements.namedItem("email").value;
           var message = document.getElementById("contact-form").elements.namedItem("message").value;
-          var accessToken = "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"; // your Gmail API access token
-          
-          var headers = new Headers();
-          headers.append("Authorization", "Bearer " + accessToken);
-          headers.append("Content-Type", "application/json");
+
           
           var body = JSON.stringify({
             "to": "mrahmandusp@gmail.com",
@@ -87,24 +84,19 @@
             "message": "Name: " + name + "\nEmail: " + email + "\nMessage: " + message
           });
           
-          var options = {
-            method: "POST",
-            headers: headers,
-            body: body
-          };
+            Email.send({
+                Host : "smtp.gmail.com",
+                Username : "Round 48",
+                Password : "mizanbro48",
+                To : 'round48special@gmail.com',
+                From : email,
+                Subject : message,
+                Body : "And this is the body"
+            }).then(
+              message => alert(message)
+            );
 
-          fetch("https://gmail.googleapis.com/gmail/v1/users/me/messages/send", options)
-            .then(function(response) {
-              if (response.ok) {
-                alert("Email sent successfully!");
-              } else {
-                alert("Failed to send email. Please try again later.");
-              }
-            })
-            .catch(function(error) {
-              alert("Failed to send email. Please try again later.");
-              console.error(error);
-            });
+
         }
         
         document.getElementById("contact-form").addEventListener("submit", function(event) {
