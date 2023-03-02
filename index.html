@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Mail Form Github Page</title>
+</head>
+<style>
+    #contact-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  margin: 4rem auto;
+}
+
+#contact-form input,
+#contact-form textarea {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-family: sans-serif;
+}
+
+#contact-form button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 15px;
+  padding: 15px;
+}
+
+#contact-form button[type="submit"]:hover {
+  background-color: #4322c7;
+}
+
+#contact-form textarea {
+  height: 150px;
+}
+
+#contact-form input:focus,
+#contact-form textarea:focus {
+  outline: none;
+  box-shadow: 0 0 5px #007bff;
+}
+#contact-form input,
+#contact-form textarea {
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  color: #333;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
+  color: inherit;
+}
+@media screen and (max-width: 768px) {
+  #contact-form {
+    max-width: 100%;
+    margin: 0 10px;
+  }
+}
+
+</style>
+<body>
+    <form id="contact-form">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <textarea name="message" placeholder="Message" required></textarea>
+        <button type="submit">Send</button>
+    </form>
+    <script>
+        function sendEmail() {
+          var name = document.getElementById("contact-form").elements.namedItem("name").value;
+          var email = document.getElementById("contact-form").elements.namedItem("email").value;
+          var message = document.getElementById("contact-form").elements.namedItem("message").value;
+          var accessToken = "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"; // your Gmail API access token
+          
+          var headers = new Headers();
+          headers.append("Authorization", "Bearer " + accessToken);
+          headers.append("Content-Type", "application/json");
+          
+          var body = JSON.stringify({
+            "to": "mrahmandusp@gmail.com",
+            "subject": "New Message from Your Website",
+            "message": "Name: " + name + "\nEmail: " + email + "\nMessage: " + message
+          });
+          
+          var options = {
+            method: "POST",
+            headers: headers,
+            body: body
+          };
+
+          fetch("https://gmail.googleapis.com/gmail/v1/users/me/messages/send", options)
+            .then(function(response) {
+              if (response.ok) {
+                alert("Email sent successfully!");
+              } else {
+                alert("Failed to send email. Please try again later.");
+              }
+            })
+            .catch(function(error) {
+              alert("Failed to send email. Please try again later.");
+              console.error(error);
+            });
+        }
+        
+        document.getElementById("contact-form").addEventListener("submit", function(event) {
+          event.preventDefault();
+          sendEmail();
+        });
+      </script>
+      
+</body>
+</html>
